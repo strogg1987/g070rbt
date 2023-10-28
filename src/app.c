@@ -5,6 +5,7 @@
 #include <libopencm3/cm3/systick.h>
 #include <libopencm3/stm32/timer.h>
 #include <libopencm3/stm32/adc.h>
+#include <libopencm3/stm32/usart.h>
 #include "FreeRTOS.h"
 #include "task.h"
 // private variables and prototypes
@@ -39,6 +40,7 @@ void vApplicationStackOverflowHook(
 
 static void task1(void *args __attribute__((unused)))
 {
+    volatile uint8_t local = 0;
     for (;;)
     {
         adc_start_conversion_regular(ADC1);
@@ -48,6 +50,20 @@ static void task1(void *args __attribute__((unused)))
         gpio_toggle(GPIOC, GPIO8);
         vTaskDelay(pdMS_TO_TICKS(500));
     }
+}
+
+static void usart_setup(void)
+{
+    /* Setup USART parameters. */
+    usart_set_baudrate(USART1, 115200);
+    usart_set_databits(USART1, 8);
+    usart_set_parity(USART1, USART_PARITY_NONE);
+    usart_set_stopbits(USART1, USART_CR2_STOPBITS_1);
+    usart_set_mode(USART1, USART_MODE_TX);
+    usart_set_flow_control(USART1, USART_FLOWCONTROL_NONE);
+
+    /* Finally enable the USART. */
+    usart_enable(USART1);
 }
 
 void config_timer16(void)
