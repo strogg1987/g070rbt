@@ -65,13 +65,14 @@ static void usart_setup(void)
 {
     nvic_enable_irq(NVIC_USART1_IRQ);
     rcc_periph_clock_enable(RCC_USART1);
+    // working combos
     rcc_periph_clock_enable(RCC_GPIOC);
-    // gpio_mode_setup(GPIOC, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO5|GPIO4);
-    // gpio_set_af(GPIOC, GPIO_AF0, GPIO5|GPIO4);
+    gpio_mode_setup(GPIOC, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO5 | GPIO4);
+    gpio_set_af(GPIOC, GPIO_AF1, GPIO5 | GPIO4);
 
-    rcc_periph_clock_enable(RCC_GPIOB);
-    gpio_mode_setup(GPIOB, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO6 | GPIO7);
-    gpio_set_af(GPIOB, GPIO_AF0, GPIO6 | GPIO7);
+    // rcc_periph_clock_enable(RCC_GPIOB);
+    // gpio_mode_setup(GPIOB, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO6 | GPIO7);
+    // gpio_set_af(GPIOB, GPIO_AF0, GPIO6 | GPIO7);
 
     usart_set_baudrate(USART1, 9600);
     usart_set_databits(USART1, 8);
