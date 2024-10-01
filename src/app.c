@@ -6,7 +6,7 @@
 #include <libopencm3/stm32/timer.h>
 #include <libopencm3/stm32/adc.h>
 #include <libopencm3/stm32/usart.h>
-
+#include <stdint.h>
 #include <memory.h>
 #include "ringbuffer.h"
 #define LIGHTMODBUS_SLAVE_FULL
